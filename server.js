@@ -20,7 +20,7 @@ const app = express();
 // middlewares 
 app.use(express.json())
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://fasco-frontend-cq7u-git-main-mohammodjuwelislams-projects.vercel.app'], // you can multiple domain. in side array
+    origin: ['http://localhost:5173', 'https://fasco-frontend-cq7u.vercel.app'], // you can multiple domain. in side array
     credentials: true
     // https://fasco-frontend-cq7u-fjkfa3rny-mohammodjuwelislams-projects.vercel.app
     // https://fasco-frontend-cq7u-git-main-mohammodjuwelislams-projects.vercel.app/
