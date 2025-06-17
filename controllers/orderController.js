@@ -16,7 +16,7 @@ const createOrder = async (req, res) => {
 
 
 
-        await handleUpdateProduct(products);
+        await handleUpdateProduct(res,products);
         const newOrder = new Order({
             user,
             products,

@@ -90,9 +90,9 @@ const userRegister = async (req, res) => {
             password: hashPassword
         });
 
-        await newUser.save();
+       const getUser = await newUser.save();
 
-        const token = await generateToken(newUser._id, '1d');
+        const token = await generateToken(getUser._id, '1d');
 
         res.cookie('token', token, {
             httpOnly: true,
@@ -103,7 +103,8 @@ const userRegister = async (req, res) => {
 
         res.status(202).json({
             message: 'User Created success',
-            success: true
+            success: true,
+            user: getUser
         })
 
     } catch (error) {
@@ -163,6 +164,7 @@ const userLogin = async (req, res) => {
         res.status(200).json({
             message: 'User successfully logged',
             success: true,
+            user
         })
 
 

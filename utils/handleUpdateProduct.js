@@ -1,7 +1,7 @@
 const Product = require("../models/Product");
-const handleUpdateProduct = async (products) => {
+const handleUpdateProduct = async (res, products) => {
     try {
-        
+
         for (const item of products) {
             let product = await Product.findById(item.product);
             if (product.stock < item.quantity) {
@@ -10,27 +10,26 @@ const handleUpdateProduct = async (products) => {
                     success: false,
                 })
             }
-            
+
             // update stock and sold 
             product.stock -= item.quantity;
             product.sold += item.quantity;
-    
-            
+
+
             // mark as best seller if applicable 
-            if(product.sold >= 3 && !product.isBestSeller) {
+            if (product.sold >= 3 && !product.isBestSeller) {
                 product.isBestSeller = true
             }
             await product.save();
-
-            console.log(`Updated product: ${product.name}, Stock: ${product.stock}, Sold: ${product.sold}`);
         }
     } catch (error) {
-        console.error("Error updating product stock:", error);
-        return {
-            success: false,
-            message: "Failed to update product stock",
-            error: error.message
-        };
+        return res.status(200).json(
+            {
+                success: false,
+                message: "Failed to update product stock",
+                error: error.message
+            }
+        )
     }
 };
 
